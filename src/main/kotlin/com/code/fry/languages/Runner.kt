@@ -1,6 +1,6 @@
-package languages
+package com.code.fry.languages
 
-import command.Resource
+import com.code.fry.command.Resource
 
 abstract class Runner(val resource: Resource) {
     abstract fun run()

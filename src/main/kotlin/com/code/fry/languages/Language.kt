@@ -1,7 +1,7 @@
-package languages
+package com.code.fry.languages
 
-import command.Resource
-import command.Result
+import com.code.fry.command.Resource
+import com.code.fry.command.Result
 
 
 class Language {
@@ -9,7 +9,7 @@ class Language {
         fun isSupported() : Boolean {
             return true
         }
-        fun run(language: String, content: Resource ): Result{
+        fun run(language: String, content: Resource): Result {
             val runner = Runners.getRunner(language, content)
             if (runner != null){
                 runner.run()

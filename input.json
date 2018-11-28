@@ -1,5 +1,5 @@
 {
-  "file" : "MainProgram.java",
-  "content": "public class HelloWorld { public static void main(String[] args){System.out.println(\"Hello, World\");}}"
-
+  "file" : "HelloWorld.java",
+  "content": "public class HelloWorld { public static void main(String[] args){System.out.println(\"Hello, World\");}}",
+  "language": "java"
 }

@@ -1,8 +1,7 @@
-package languages
+package com.code.fry.languages
 
-import command.Resource
+import com.code.fry.command.Resource
 import org.jetbrains.annotations.NotNull
-import org.jetbrains.annotations.Nullable
 
 class Runners {
     companion object {
