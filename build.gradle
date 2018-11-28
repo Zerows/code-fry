@@ -1,14 +1,10 @@
 plugins {
-    id 'application'
     id 'org.jetbrains.kotlin.jvm' version '1.2.71'
 }
 
 group 'fry-code-runner'
 version '1.0-SNAPSHOT'
-
 sourceCompatibility = 1.8
-
-mainClassName = 'com.code.fry.Main'
 
 repositories {
     mavenCentral()
