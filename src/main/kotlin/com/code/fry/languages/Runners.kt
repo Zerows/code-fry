@@ -10,6 +10,15 @@ class Runners {
                  "java" -> {
                      JavaRunner(resource)
                  }
+                 "python" -> {
+                     PythonRunner(resource)
+                 }
+                 "javascript" -> {
+                     JavascriptRunner(resource)
+                 }
+                 "ruby" -> {
+                     RubyRunner(resource)
+                 }
                  else -> {
                      null
                  }

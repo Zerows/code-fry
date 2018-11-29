@@ -23,10 +23,10 @@ class Main {
                 val path = System.getProperty("user.dir")
                 val content = FileUtils.read("${path}/${cmd.getOptionValue("content")}")
                 val resource = Gson().fromJson(content, Resource::class.java)
-                val result = Language.run("java", resource)
+                val result = Language.run(resource.language, resource)
                 println(Gson().toJson(result))
             } catch (e: IllegalArgumentException) {
-                println(e)
+                println("{error: \"Unsupported Language\"}")
             }
         }
     }
