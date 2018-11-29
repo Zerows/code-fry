@@ -20,8 +20,8 @@ class Main {
             val cmd = parser.parse(options, args)
             println(cmd.argList)
             try {
-                val path = System.getProperty("user.dir")
-                val content = FileUtils.read("${path}/${cmd.getOptionValue("content")}")
+
+                val content = FileUtils.read(cmd.getOptionValue("content"))
                 val resource = Gson().fromJson(content, Resource::class.java)
                 val result = Language.run(resource.language, resource)
                 println(Gson().toJson(result))

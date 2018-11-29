@@ -1,0 +1,5 @@
+{
+  "file" : "HelloWorld.java",
+  "content": "public class HelloWorld { public static void main(String[] args){ystem.out.println(\"Hello, World Java\");}}",
+  "language": "java"
+}
