@@ -5,8 +5,10 @@ import java.io.FileNotFoundException
 
 class FileUtils {
     companion object {
+
         fun write(path: String, content: String){
-            File(path).bufferedWriter().use { out -> out.write(content) }
+            val file = File(path)
+            file.writeText(content)
         }
         fun read(path: String): String{
             val f = File(path)
