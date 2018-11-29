@@ -21,7 +21,6 @@ class Main {
             println(cmd.argList)
             try {
                 val path = System.getProperty("user.dir")
-
                 val content = FileUtils.read("${path}/${cmd.getOptionValue("content")}")
                 val resource = Gson().fromJson(content, Resource::class.java)
                 val result = Language.run("java", resource)

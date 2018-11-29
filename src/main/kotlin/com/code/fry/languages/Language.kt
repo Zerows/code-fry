@@ -6,22 +6,23 @@ import com.code.fry.command.Result
 
 class Language {
     companion object {
-        fun isSupported() : Boolean {
-            return true
-        }
-
         fun run(language: String, content: Resource): Result? {
             val runner = Runners.getRunner(language, content)
-            if (runner != null){
+            if (runner != null) {
                 try {
+                    runner.createFiles()
                     runner.run()
+                    val result = runner.collectOutput()
+                    runner.cleanup()
+                    return result
                 } catch (e: RuntimeException) {
+                    throw e
+                } finally {
 
                 }
-            }else {
+            } else {
                 throw IllegalArgumentException("Unsupported Lauguage")
             }
-            return null
         }
     }
 }

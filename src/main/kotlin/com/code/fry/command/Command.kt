@@ -1,24 +1,21 @@
 package com.code.fry.command
 
+import com.code.fry.util.FileUtils
+import java.io.File
 import java.util.concurrent.TimeUnit
 
 class Command {
     companion object {
-        fun execute(vararg commands: String): Result {
+        fun execute(vararg commands: String): Boolean {
             val process = ProcessBuilder(commands.asList())
-                    .redirectOutput(ProcessBuilder.Redirect.PIPE)
-                    .redirectError(ProcessBuilder.Redirect.PIPE)
+                    .redirectOutput(ProcessBuilder.Redirect.to(File(FileUtils.OUT_PATH)))
+                    .redirectError(ProcessBuilder.Redirect.to(File(FileUtils.ERROR_PATH)))
                     .start()
             if (!process.waitFor(10, TimeUnit.SECONDS)) {
                 process.destroy()
                 throw RuntimeException("execution timed out: $this")
             }
-            if (process.exitValue() != 0) {
-                throw RuntimeException("execution failed with code ${process.exitValue()}: $this")
-            } else {
-                val output = process.inputStream.bufferedReader(Charsets.UTF_8).readText()
-                return Result(output, *commands)
-            }
+            return process.exitValue() == 0
         }
     }
 }
