@@ -1,11 +1,11 @@
 package com.code.fry
 
-import com.google.gson.Gson
 import com.code.fry.command.Resource
 import com.code.fry.languages.Language
-import org.apache.commons.cli.Options
-import org.apache.commons.cli.DefaultParser
 import com.code.fry.util.FileUtils
+import com.google.gson.Gson
+import org.apache.commons.cli.DefaultParser
+import org.apache.commons.cli.Options
 
 class Main {
 
@@ -24,8 +24,8 @@ class Main {
 
                 val content = FileUtils.read("${path}/${cmd.getOptionValue("content")}")
                 val resource = Gson().fromJson(content, Resource::class.java)
-                Language.run("java", resource)
-                //Language.run("kava", "")
+                val result = Language.run("java", resource)
+                println(Gson().toJson(result))
             } catch (e: IllegalArgumentException) {
                 println(e)
             }

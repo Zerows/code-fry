@@ -9,14 +9,19 @@ class Language {
         fun isSupported() : Boolean {
             return true
         }
-        fun run(language: String, content: Resource): Result {
+
+        fun run(language: String, content: Resource): Result? {
             val runner = Runners.getRunner(language, content)
             if (runner != null){
-                runner.run()
+                try {
+                    runner.run()
+                } catch (e: RuntimeException) {
+
+                }
             }else {
                 throw IllegalArgumentException("Unsupported Lauguage")
             }
-            return Result()
+            return null
         }
     }
 }

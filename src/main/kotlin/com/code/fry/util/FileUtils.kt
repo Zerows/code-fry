@@ -6,9 +6,10 @@ import java.io.FileNotFoundException
 class FileUtils {
     companion object {
 
-        fun write(path: String, content: String){
+        fun write(path: String, content: String): File {
             val file = File(path)
             file.writeText(content)
+            return file
         }
         fun read(path: String): String{
             val f = File(path)

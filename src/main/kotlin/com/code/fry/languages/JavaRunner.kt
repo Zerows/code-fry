@@ -1,9 +1,10 @@
 package com.code.fry.languages
 
-import com.code.fry.Constants
+import com.code.fry.command.Command
 import com.code.fry.command.Resource
+import com.code.fry.command.Result
 import com.code.fry.util.FileUtils
-import java.util.concurrent.TimeUnit
+import java.io.File
 
 class JavaRunner(resource: Resource) : Runner(resource) {
 
@@ -11,39 +12,21 @@ class JavaRunner(resource: Resource) : Runner(resource) {
         return "java"
     }
 
-    override fun run() {
+    override fun run(): Result {
         println("Runing Java ${resource.file}")
-        FileUtils.write(resource.file, resource.content)
-
-        var process = ProcessBuilder("javac", resource.file)
-                .redirectOutput(ProcessBuilder.Redirect.INHERIT)
-                .redirectError(ProcessBuilder.Redirect.INHERIT)
-                .start()
-        println(process.inputStream.bufferedReader(Charsets.UTF_8).readText())
-        if (!process.waitFor(10, TimeUnit.SECONDS)) {
-            process.destroy()
-            throw RuntimeException("execution timed out: $this")
-        }
-        if (process.exitValue() != 0) {
-            throw RuntimeException("execution failed with code ${process.exitValue()}: $this")
-        }
-        println("Starting TO Run java program")
-        process = ProcessBuilder("java", "HelloWorld")
-                .redirectOutput(ProcessBuilder.Redirect.INHERIT)
-                .redirectError(ProcessBuilder.Redirect.INHERIT)
-                .start()
-        println(process.inputStream.bufferedReader(Charsets.UTF_8).readText())
-        if (!process.waitFor(Constants.TIMEOUT, TimeUnit.SECONDS)) {
-            process.destroy()
-            throw RuntimeException("execution timed out: $this")
-        }
-        if (process.exitValue() != 0) {
-            throw RuntimeException("execution failed with code ${process.exitValue()}: $this")
-        }
-
+        val file = FileUtils.write(resource.file, resource.content)
+        println("Compiling java program")
+        Command.execute("javac", resource.file)
+        println("Starting To Run java program")
+        val runResult = Command.execute("java", file.nameWithoutExtension)
         println("End Running java program")
-        FileUtils.delete(resource.file)
-        FileUtils.delete("HelloWorld.class")
+        FileUtils.delete(file.absolutePath)
+        FileUtils.delete(getFileWithClassExtension(file))
+        return runResult
+    }
+
+    private fun getFileWithClassExtension(file: File): String {
+        return "${file.nameWithoutExtension}.class"
     }
 
 }
