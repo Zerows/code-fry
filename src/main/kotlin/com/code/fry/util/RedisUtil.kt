@@ -15,6 +15,7 @@ class RedisUtil {
                 jedis.select(15)
             } catch (e: Exception) {
                 println(e)
+                throw(e)
             }
         }
 

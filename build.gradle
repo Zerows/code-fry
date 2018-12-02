@@ -1,5 +1,6 @@
 plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.2.71'
+    id 'application'
 }
 
 group 'fry-code-runner'
@@ -10,6 +11,7 @@ repositories {
     mavenCentral()
 }
 
+mainClassName = "com.code.fry.MQMain"
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
     // https://mvnrepository.com/artifact/com.google.code.gson/gson
