@@ -16,7 +16,7 @@ abstract class Runner(val resource: Resource) {
     fun collectOutput(): Result {
         val output = FileUtils.read(FileUtils.OUT_PATH)
         val error = FileUtils.read(FileUtils.ERROR_PATH)
-        return Result(output, error)
+        return Result(output, error, resource.jobid)
     }
 
     fun cleanup() {

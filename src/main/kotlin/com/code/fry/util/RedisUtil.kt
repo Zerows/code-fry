@@ -23,8 +23,12 @@ class RedisUtil {
             jedis.set(id, message)
         }
 
-        fun getValue(id: String): String {
-            return jedis.get(id).toString()
+        fun getValue(id: String): String? {
+            return if (jedis.exists(id)) {
+                jedis.get(id).toString()
+            } else {
+                null
+            }
         }
     }
 }

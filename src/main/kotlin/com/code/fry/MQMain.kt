@@ -29,7 +29,7 @@ class MQMain {
             val connection: Connection?
             connection = factory.newConnection()
             val channel = connection!!.createChannel()
-            channel.basicQos(1)
+            channel.basicQos(2, true)
             channel.queueDeclare(RPC_QUEUE_NAME, true, false, false, null)
             println(" [x] Awaiting RPC requests")
             val consumer = object : DefaultConsumer(channel) {
@@ -42,13 +42,13 @@ class MQMain {
                         val job = Gson().fromJson(message, Job::class.java)
                         val content = RedisUtil.getValue(job.jobId)
                         val resource = Gson().fromJson(content, Resource::class.java)
+                        resource.jobid = job.jobId
                         val result = Language.run(resource.language, resource)
                         RedisUtil.setValue(job.jobId, Gson().toJson(result))
                         println("Completed Job ${job.jobId}")
                     } catch (e: Exception) {
                         println(e)
                     } finally {
-
                     }
                 }
             }
