@@ -1,11 +1,17 @@
 package com.code.fry
 
+import com.code.fry.DbSettings.db
 import com.code.fry.command.Job
 import com.code.fry.command.Resource
+import com.code.fry.dao.Result
+import com.code.fry.dao.Submission
+import com.code.fry.dao.Submissions
 import com.code.fry.languages.Language
-import com.code.fry.util.RedisUtil
 import com.google.gson.Gson
 import com.rabbitmq.client.*
+import org.jetbrains.exposed.sql.SchemaUtils
+import org.jetbrains.exposed.sql.transactions.transaction
+import org.joda.time.DateTime
 import java.io.IOException
 import java.nio.charset.Charset
 import java.util.concurrent.atomic.AtomicInteger
@@ -17,8 +23,12 @@ class MQMain {
 
         @JvmStatic
         fun main(args: Array<String>) {
-            RedisUtil.getValue("1")
             connectToQueue()
+            db
+            transaction {
+                SchemaUtils.create(Submissions)
+
+            }
 
         }
 
@@ -36,15 +46,28 @@ class MQMain {
                 @Throws(IOException::class)
                 override fun handleDelivery(consumerTag: String?, envelope: Envelope?, properties: AMQP.BasicProperties, body: ByteArray?) {
 
-
                     try {
                         val message = String(body!!, Charset.forName("UTF-8"))
                         val job = Gson().fromJson(message, Job::class.java)
-                        val content = RedisUtil.getValue(job.jobId)
-                        val resource = Gson().fromJson(content, Resource::class.java)
-                        resource.jobid = job.jobId
-                        val result = Language.run(resource.language, resource)
-                        RedisUtil.setValue(job.jobId, Gson().toJson(result))
+                        transaction {
+                            val submission = Submission.find { Submissions.id eq job.jobId.toInt() }.first()
+                            val resource = Resource(job.jobId, submission.language,
+                                    submission.filename, submission.content, null)
+                            val programOutput = Language.run(resource.language, resource)
+                            if (programOutput != null) {
+                                val result = Result.new {
+                                    if (programOutput.output != null)
+                                        output = programOutput.output
+                                    if (programOutput.error != null)
+                                        error = programOutput.error
+
+                                    createdAt = DateTime.now()
+                                    updatedAt = DateTime.now()
+                                    this.submission = submission
+
+                                }
+                            }
+                        }
                         println("Completed Job ${job.jobId}")
                     } catch (e: Exception) {
                         println(e)
@@ -61,3 +84,4 @@ class MQMain {
     }
 
 }
+

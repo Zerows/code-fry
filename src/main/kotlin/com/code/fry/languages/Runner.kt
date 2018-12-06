@@ -1,7 +1,7 @@
 package com.code.fry.languages
 
+import com.code.fry.command.Output
 import com.code.fry.command.Resource
-import com.code.fry.command.Result
 import com.code.fry.util.FileUtils
 
 abstract class Runner(val resource: Resource) {
@@ -13,10 +13,10 @@ abstract class Runner(val resource: Resource) {
         FileUtils.write("${FileUtils.TMP_DIR}/${resource.file}", resource.content)
     }
 
-    fun collectOutput(): Result {
+    fun collectOutput(): Output {
         val output = FileUtils.read(FileUtils.OUT_PATH)
         val error = FileUtils.read(FileUtils.ERROR_PATH)
-        return Result(output, error, resource.jobid)
+        return Output(output, error, resource.jobid)
     }
 
     fun cleanup() {

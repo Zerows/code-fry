@@ -1,12 +1,12 @@
 package com.code.fry.languages
 
+import com.code.fry.command.Output
 import com.code.fry.command.Resource
-import com.code.fry.command.Result
 
 
 class Language {
     companion object {
-        fun run(language: String, content: Resource): Result? {
+        fun run(language: String, content: Resource): Output? {
             val runner = Runners.getRunner(language, content)
             if (runner != null) {
                 try {
