@@ -2,7 +2,7 @@ package com.code.fry.dao
 
 import org.jetbrains.exposed.dao.IntIdTable
 
-object Submissions : IntIdTable() {
+object Pads : IntIdTable() {
     val language = text("language")
     val filename = text("filename")
     val content = text("content")
