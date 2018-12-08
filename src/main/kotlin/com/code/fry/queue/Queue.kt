@@ -18,7 +18,7 @@ class Queue {
             channel.queueDeclare(RPC_QUEUE_NAME, true, false, false, null)
             val consumer = QueueConsumer(channel)
             try {
-                channel.basicConsume(RPC_QUEUE_NAME, true, consumer)
+                channel.basicConsume(RPC_QUEUE_NAME, false, consumer)
             } catch (e: Exception) {
                 Logger.Logger.error("", e)
             }

@@ -22,6 +22,7 @@ class QueueConsumer(myChannel: Channel) : DefaultConsumer(myChannel) {
         try {
             val message = String(body!!, Charset.forName("UTF-8"))
             val job = Gson().fromJson(message, Job::class.java)
+            Logger.Logger.info("Started Job ${job.jobId}")
             transaction {
                 val submission = Pad.find { Pads.id eq job.jobId.toInt() }.first()
                 val resource = Resource(job.jobId, submission.language,
@@ -45,6 +46,10 @@ class QueueConsumer(myChannel: Channel) : DefaultConsumer(myChannel) {
         } catch (e: Exception) {
             Logger.Logger.error("", e)
         } finally {
+            val deliveryTag = envelope?.deliveryTag
+            if (deliveryTag != null) {
+                channel.basicAck(deliveryTag, false)
+            }
         }
     }
 }
