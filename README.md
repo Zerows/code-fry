@@ -3,4 +3,6 @@
 
 > docker run --network="host" -a stdout java-fry:latest
 
+> ./gradlew clean run
+
 
