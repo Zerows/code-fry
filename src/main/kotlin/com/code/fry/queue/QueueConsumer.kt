@@ -6,6 +6,7 @@ import com.code.fry.command.Resource
 import com.code.fry.dao.Pad
 import com.code.fry.dao.Pads
 import com.code.fry.dao.Result
+import com.code.fry.dao.Results
 import com.code.fry.languages.Language
 import com.google.gson.Gson
 import com.rabbitmq.client.AMQP
@@ -22,27 +23,23 @@ class QueueConsumer(myChannel: Channel) : DefaultConsumer(myChannel) {
         try {
             val message = String(body!!, Charset.forName("UTF-8"))
             val job = Gson().fromJson(message, Job::class.java)
-            Logger.Logger.info("Started Job ${job.jobId}")
+            Logger.Logger.info("Started Job ${job.id}")
+            Logger.Logger.info("Message: $message")
             transaction {
-                val submission = Pad.find { Pads.id eq job.jobId.toInt() }.first()
-                val resource = Resource(job.jobId, submission.language,
+                val submission = Pad.find { Pads.id eq job.id.toInt() }.first()
+                val resource = Resource(job.id, submission.language,
                         submission.filename, submission.content, null)
                 val programOutput = Language.run(resource.language, resource)
                 if (programOutput != null) {
-                    Result.new {
-                        if (programOutput.output != null)
-                            output = programOutput.output
-                        if (programOutput.error != null)
-                            error = programOutput.error
-
-                        createdAt = DateTime.now()
-                        updatedAt = DateTime.now()
-                        this.submission = submission
-
-                    }
+                    val result = Result.find { Results.id eq job.resultId}.first()
+                    if (programOutput.output != null)
+                        result.output = programOutput.output
+                    if (programOutput.error != null)
+                        result.error = programOutput.error
+                    result.updatedAt = DateTime.now()
                 }
             }
-            Logger.Logger.info("Completed Job ${job.jobId}")
+            Logger.Logger.info("Completed Job ${job.id}")
         } catch (e: Exception) {
             Logger.Logger.error("", e)
         } finally {

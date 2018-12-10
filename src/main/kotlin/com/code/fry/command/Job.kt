@@ -1,3 +1,5 @@
 package com.code.fry.command
 
-class Job(val jobId: String)
+import com.google.gson.annotations.SerializedName
+
+class Job(val id: String, @SerializedName("result_id") val resultId: Int)
