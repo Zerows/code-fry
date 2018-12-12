@@ -1,6 +1,6 @@
 package com.code.fry.queue
 
-import com.code.fry.Logger
+import com.code.fry.loggers.Logger
 import com.rabbitmq.client.Connection
 import com.rabbitmq.client.ConnectionFactory
 

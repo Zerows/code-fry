@@ -1,6 +1,6 @@
 package com.code.fry.states.initializers
 
-import com.code.fry.Logger.Logger
+import com.code.fry.loggers.Logger.Logger
 import com.tinder.StateMachine
 
 object MyStateMachine {

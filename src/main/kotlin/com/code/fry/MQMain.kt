@@ -1,6 +1,6 @@
 package com.code.fry
 
-import com.code.fry.Logger.Logger
+import com.code.fry.loggers.Logger.Logger
 import com.code.fry.dao.Pads
 import com.code.fry.dao.Results
 import com.code.fry.db.DbSettings.DB

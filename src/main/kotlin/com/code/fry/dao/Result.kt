@@ -10,6 +10,7 @@ class Result(id: EntityID<Int>) : IntEntity(id) {
     var submission by Pad referencedOn Results.pad
     var output by Results.output
     var error by Results.error
+    var status by Results.status
     var createdAt by Results.createdAt
     var updatedAt by Results.updatedAt
 }
