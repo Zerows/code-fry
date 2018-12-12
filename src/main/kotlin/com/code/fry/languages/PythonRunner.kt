@@ -11,7 +11,7 @@ class PythonRunner(resource: Resource) : Runner(resource) {
     }
 
     override fun run(): Boolean {
-        return Command.execute("python", "$TMP_DIR/${resource.file}")
+        return Command.execute("python", getFileAbsPath())
 
     }
 

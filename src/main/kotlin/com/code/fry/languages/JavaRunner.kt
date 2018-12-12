@@ -13,7 +13,7 @@ class JavaRunner(resource: Resource) : Runner(resource) {
 
     override fun run(): Boolean {
         val file = File(resource.file)
-        val compilationResult = Command.execute("javac", "$TMP_DIR/${resource.file}")
+        val compilationResult = Command.execute("javac", getFileAbsPath())
         return if (compilationResult) {
             return Command.execute("java", "-cp", TMP_DIR, file.nameWithoutExtension)
         } else {

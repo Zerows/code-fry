@@ -2,6 +2,7 @@ package com.code.fry.languages
 
 import com.code.fry.command.Output
 import com.code.fry.command.Resource
+import com.code.fry.util.FileName
 import com.code.fry.util.FileUtils
 
 abstract class Runner(val resource: Resource) {
@@ -23,8 +24,8 @@ abstract class Runner(val resource: Resource) {
         FileUtils.cleanup()
     }
 
-    fun getFileAbsPath(path: String) {
-
+    fun getFileAbsPath(): String {
+        return "${FileUtils.TMP_DIR}/${resource.file}"
     }
 
 

@@ -11,7 +11,7 @@ class JavascriptRunner(resource: Resource) : Runner(resource) {
     }
 
     override fun run(): Boolean {
-        return Command.execute("node", "$TMP_DIR/${resource.file}")
+        return Command.execute("node", getFileAbsPath())
     }
 
 }

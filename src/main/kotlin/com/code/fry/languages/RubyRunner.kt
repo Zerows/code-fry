@@ -11,7 +11,7 @@ class RubyRunner(resource: Resource) : Runner(resource) {
     }
 
     override fun run(): Boolean {
-        return Command.execute("ruby", "$TMP_DIR/${resource.file}")
+        return Command.execute("ruby", getFileAbsPath())
     }
 
 }
