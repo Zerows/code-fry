@@ -1,7 +1,6 @@
 package com.code.fry
 
 import com.code.fry.command.Resource
-import com.code.fry.languages.Language
 import com.code.fry.languages.Runners
 import com.code.fry.util.FileUtils
 import com.google.gson.Gson
