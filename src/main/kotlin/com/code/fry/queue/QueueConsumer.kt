@@ -8,6 +8,7 @@ import com.code.fry.dao.Pads
 import com.code.fry.dao.Result
 import com.code.fry.dao.Results
 import com.code.fry.languages.Language
+import com.code.fry.util.FileName
 import com.google.gson.Gson
 import com.rabbitmq.client.AMQP
 import com.rabbitmq.client.Channel
@@ -27,8 +28,9 @@ class QueueConsumer(myChannel: Channel) : DefaultConsumer(myChannel) {
             Logger.Logger.info("Message: $message")
             transaction {
                 val submission = Pad.find { Pads.id eq job.id.toInt() }.first()
+                val fileName = FileName.valueOf(submission.language)
                 val resource = Resource(job.id, submission.language,
-                        submission.filename, submission.content, null)
+                        fileName.customName, submission.content, null)
                 val programOutput = Language.run(resource.language, resource)
                 if (programOutput != null) {
                     val result = Result.find { Results.id eq job.resultId}.first()
@@ -47,6 +49,7 @@ class QueueConsumer(myChannel: Channel) : DefaultConsumer(myChannel) {
             if (deliveryTag != null) {
                 channel.basicAck(deliveryTag, false)
             }
+            Logger.Logger.info("Acknowleged")
         }
     }
 }
