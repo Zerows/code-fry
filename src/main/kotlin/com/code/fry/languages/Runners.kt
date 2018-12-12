@@ -11,7 +11,7 @@ class Runners {
         const val JAVASCRIPT: String = "javascript"
         const val RUBY: String = "ruby"
 
-         fun getRunner(@NotNull language: String, @NotNull resource: Resource) : Runner?{
+         private fun getRunner(@NotNull language: String, @NotNull resource: Resource) : Runner?{
              return when(language.toLowerCase()){
                  JAVA -> {
                      JavaRunner(resource)
