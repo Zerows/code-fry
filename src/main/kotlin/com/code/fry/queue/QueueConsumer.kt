@@ -62,8 +62,12 @@ class QueueConsumer(myChannel: Channel) : DefaultConsumer(myChannel) {
             Logger.Logger.error("", e)
             val job = Gson().fromJson(message, Job::class.java)
             transaction {
-                val result: Result = Result.find { Results.id eq job.resultId }.first()
-                result.status = ResultStatus.Cancelled
+                try {
+                    val result: Result = Result.find { Results.id eq job.resultId }.first()
+                    result.status = ResultStatus.Cancelled
+                }catch(e: Exception){
+                    Logger.Logger.error("", e)
+                }
             }
             Logger.Logger.info("Results status Update: In Cancelled")
         } finally {
