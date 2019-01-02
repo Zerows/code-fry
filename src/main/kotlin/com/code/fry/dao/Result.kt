@@ -7,7 +7,7 @@ import org.jetbrains.exposed.dao.IntEntityClass
 class Result(id: EntityID<Int>) : IntEntity(id) {
     companion object : IntEntityClass<Result>(Results)
 
-    var submission by Pad referencedOn Results.pad
+    var runner_id by Results.runner_id
     var output by Results.output
     var error by Results.error
     var status by Results.status
