@@ -6,7 +6,7 @@ import org.jetbrains.exposed.sql.Database
 object DbSettings {
     val DB by lazy {
         val ds = BasicDataSource()
-        ds.url = "jdbc:postgresql://localhost:5433/codefry"
+        ds.url = "jdbc:postgresql://localhost:5432/postgres"
         ds.username = "postgres"
         ds.password = "example"
         ds.maxOpenPreparedStatements = 2
