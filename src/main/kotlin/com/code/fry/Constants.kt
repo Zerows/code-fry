@@ -8,6 +8,6 @@ class Constants{
         val DB_PASSWORD = System.getenv("DB_PASSWORD") as String
         val QUEUE_HOST = System.getenv("QUEUE_HOST") as String
         val QUEUE_NAME = System.getenv("QUEUE_NAME") as String
-        val QUEUE_PORT = System.getenv("QUEUE_PORT").toLong()
+        val QUEUE_PORT = System.getenv("QUEUE_PORT").toInt()
     }
 }

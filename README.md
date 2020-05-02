@@ -1,7 +1,7 @@
 
 > docker build  -t java-fry -f Dockerfile . 
 
-> docker run --network="host" -a stdout java-fry:latest
+> docker run  --env-file=env --network="host" -a stdout java-fry:latest
 
 > ./gradlew clean build
 
