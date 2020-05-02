@@ -1,16 +1,17 @@
 package com.code.fry.queue
 
+import com.code.fry.Constants
 import com.code.fry.loggers.Logger
 import com.rabbitmq.client.Connection
 import com.rabbitmq.client.ConnectionFactory
 
 class Queue {
     companion object {
-        private const val RPC_QUEUE_NAME = "rpc_queue"
+        private val RPC_QUEUE_NAME = Constants.QUEUE_NAME
         fun start() {
             val factory = ConnectionFactory()
-            factory.host = "localhost"
-            factory.port = 5672
+            factory.host = Constants.QUEUE_HOST
+            factory.port = Constants.QUEUE_PORT
             val connection: Connection?
             connection = factory.newConnection()
             val channel = connection!!.createChannel()

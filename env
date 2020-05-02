@@ -1,0 +1,6 @@
+export DB_URL=jdbc:postgresql://localhost:5432/postgres
+export DB_USERNAME=postgres
+export DB_PASSWORD=example
+export QUEUE_HOST=localhost
+export QUEUE_NAME=rpc_queue
+export QUEUE_PORT=5672
