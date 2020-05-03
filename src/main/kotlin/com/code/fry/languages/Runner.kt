@@ -2,6 +2,7 @@ package com.code.fry.languages
 
 import com.code.fry.command.Output
 import com.code.fry.command.Resource
+import com.code.fry.loggers.Logger
 import com.code.fry.util.FileUtils
 
 abstract class Runner(val resource: Resource) {
@@ -10,6 +11,7 @@ abstract class Runner(val resource: Resource) {
         FileUtils.createTmp()
         FileUtils.createOutput()
         FileUtils.write(getFileAbsPath(), resource.content)
+        Logger.Logger.info("Wrote file, ${getFileAbsPath()}")
     }
 
     fun collectOutput(): Output {
