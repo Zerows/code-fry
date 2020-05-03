@@ -2,7 +2,6 @@ package com.code.fry.languages
 
 import com.code.fry.command.Output
 import com.code.fry.command.Resource
-import com.code.fry.util.FileName
 import com.code.fry.util.FileUtils
 
 abstract class Runner(val resource: Resource) {
@@ -11,7 +10,7 @@ abstract class Runner(val resource: Resource) {
     fun createFiles() {
         FileUtils.createTmp()
         FileUtils.createOutput()
-        FileUtils.write("${FileUtils.TMP_DIR}/${resource.file}", resource.content)
+        FileUtils.write(getFileAbsPath(), resource.content)
     }
 
     fun collectOutput(): Output {
