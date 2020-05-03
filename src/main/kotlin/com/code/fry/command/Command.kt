@@ -1,5 +1,6 @@
 package com.code.fry.command
 
+import com.code.fry.loggers.Logger
 import com.code.fry.util.FileUtils
 import java.io.File
 import java.util.concurrent.TimeUnit
@@ -7,6 +8,7 @@ import java.util.concurrent.TimeUnit
 class Command {
     companion object {
         fun execute(vararg commands: String): Boolean {
+            Logger.Logger.info(commands.asList().toString())
             val process = ProcessBuilder(commands.asList())
                     .redirectOutput(ProcessBuilder.Redirect.to(File(FileUtils.OUT_PATH)))
                     .redirectError(ProcessBuilder.Redirect.to(File(FileUtils.ERROR_PATH)))
