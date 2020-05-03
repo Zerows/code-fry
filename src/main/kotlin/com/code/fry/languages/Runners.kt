@@ -17,7 +17,7 @@ class Runners {
                      JavaRunner(resource)
                  }
                  PYTHON -> {
-                     PythonRunner(resource)
+                     Python3Runner(resource)
                  }
                  JAVASCRIPT -> {
                      JavascriptRunner(resource)
