@@ -6,7 +6,7 @@ import com.code.fry.command.Resource
 class PythonRunner(resource: Resource) : Runner(resource) {
 
     override fun run(): Boolean {
-        return Command.execute("python", getFileAbsPath())
+        return Command.execute("python3", getFileAbsPath())
 
     }
 
