@@ -33,19 +33,17 @@ class Runners {
         fun run(language: String, content: Resource): Output? {
             val runner = getRunner(language, content)
             if (runner != null) {
-                try {
+                return try {
                     runner.createFiles()
                     runner.run()
-                    val result = runner.collectOutput()
-                    runner.cleanup()
-                    return result
+                    runner.collectOutput()
                 } catch (e: RuntimeException) {
                     throw e
                 } finally {
-
+                    runner.cleanup()
                 }
             } else {
-                throw IllegalArgumentException("Unsupported Lauguage")
+                throw IllegalArgumentException("Unsupported Lauguage $String")
             }
         }
     }

@@ -32,9 +32,6 @@ class FileUtils {
                 throw FileNotFoundException("No this file is not found FilePath: $path")
             }
         }
-        fun delete(path: String): Boolean{
-            return File(path).delete()
-        }
 
         fun cleanup(): Boolean {
             File(TMP_DIR).deleteRecursively()

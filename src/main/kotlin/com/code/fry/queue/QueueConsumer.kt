@@ -1,18 +1,17 @@
 package com.code.fry.queue
 
-import com.code.fry.loggers.Logger
 import com.code.fry.command.Job
 import com.code.fry.command.Resource
 import com.code.fry.dao.*
 import com.code.fry.languages.Runners
 import com.code.fry.loggers.ExposedLogger
+import com.code.fry.loggers.Logger
 import com.code.fry.util.FileName
 import com.google.gson.Gson
 import com.rabbitmq.client.AMQP
 import com.rabbitmq.client.Channel
 import com.rabbitmq.client.DefaultConsumer
 import com.rabbitmq.client.Envelope
-import org.jetbrains.exposed.sql.StdOutSqlLogger
 import org.jetbrains.exposed.sql.addLogger
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.joda.time.DateTime

@@ -6,7 +6,6 @@ import com.code.fry.util.FileUtils
 
 abstract class Runner(val resource: Resource) {
     abstract fun run(): Boolean
-    abstract fun ext(): String
     fun createFiles() {
         FileUtils.createTmp()
         FileUtils.createOutput()

@@ -7,10 +7,6 @@ import java.io.File
 
 class JavaRunner(resource: Resource) : Runner(resource) {
 
-    override fun ext(): String {
-        return "java"
-    }
-
     override fun run(): Boolean {
         val file = File(resource.file)
         val compilationResult = Command.execute("javac", getFileAbsPath())
