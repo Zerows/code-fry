@@ -54,6 +54,8 @@ class MQMain {
                 Event.OnQueueConnected -> {
                     transition = stateMachine.transition(Event.OnSuccess)
                 }
+
+                else -> {}
             }
             if (transition != null) {
                 handleEvent(transition!!.event, stateMachine)

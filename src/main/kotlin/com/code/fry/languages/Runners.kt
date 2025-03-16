@@ -3,6 +3,7 @@ package com.code.fry.languages
 import com.code.fry.command.Output
 import com.code.fry.command.Resource
 import org.jetbrains.annotations.NotNull
+import java.util.*
 
 class Runners {
     companion object {
@@ -11,25 +12,29 @@ class Runners {
         const val JAVASCRIPT: String = "javascript"
         const val RUBY: String = "ruby"
 
-         private fun getRunner(@NotNull language: String, @NotNull resource: Resource) : Runner?{
-             return when(language.toLowerCase()){
+         private fun getRunner(@NotNull language: String, @NotNull resource: Resource) : Runner? {
+             return when (language.lowercase(Locale.getDefault())) {
                  JAVA -> {
                      JavaRunner(resource)
                  }
+
                  PYTHON -> {
                      Python3Runner(resource)
                  }
+
                  JAVASCRIPT -> {
                      JavascriptRunner(resource)
                  }
+
                  RUBY -> {
                      RubyRunner(resource)
                  }
+
                  else -> {
                      null
                  }
              }
-        }
+         }
         fun run(language: String, content: Resource): Output? {
             val runner = getRunner(language, content)
             if (runner != null) {

@@ -1,6 +1,7 @@
 package com.code.fry.dao
 
-import org.jetbrains.exposed.dao.IntIdTable
+import org.jetbrains.exposed.dao.id.IntIdTable
+import org.jetbrains.exposed.sql.jodatime.date
 
 object Pads : IntIdTable() {
     val language = text("language")
