@@ -39,6 +39,7 @@ object MyStateMachine {
                     SideEffect.LogQueueConnected -> Logger.info("Queue Connected")
                     SideEffect.LogDBConnected -> Logger.info("DB Connected")
                     SideEffect.LogStart -> Logger.info("Application Start, Initializing Logger")
+                    else -> {}
                 }
             }
         }
